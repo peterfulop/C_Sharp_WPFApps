@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DoboszamokModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="versenyszamok">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nev" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="versenyzok">
+          <Key>
+            <PropertyRef Name="rajtszam" />
+          </Key>
+          <Property Name="rajtszam" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nev" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="szuletes" Type="datetime" Nullable="false" />
+          <Property Name="nem" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="fk_versenyszam_id" Type="int" Nullable="false" />
+          <Property Name="korosztaly" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_versenyzok_ToVersenyszamok">
+          <End Role="versenyszamok" Type="Self.versenyszamok" Multiplicity="1" />
+          <End Role="versenyzok" Type="Self.versenyzok" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="versenyszamok">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="versenyzok">
+              <PropertyRef Name="fk_versenyszam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DoboszamokModelStoreContainer">
+          <EntitySet Name="versenyszamok" EntityType="Self.versenyszamok" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="versenyzok" EntityType="Self.versenyzok" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_versenyzok_ToVersenyszamok" Association="Self.FK_versenyzok_ToVersenyszamok">
+            <End Role="versenyszamok" EntitySet="versenyszamok" />
+            <End Role="versenyzok" EntitySet="versenyzok" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DoboszamokModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DoboszamokEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="versenyszamok" EntityType="DoboszamokModel.versenyszamok" />
+          <EntitySet Name="versenyzok" EntityType="DoboszamokModel.versenyzok" />
+          <AssociationSet Name="FK_versenyzok_ToVersenyszamok" Association="DoboszamokModel.FK_versenyzok_ToVersenyszamok">
+            <End Role="versenyszamok" EntitySet="versenyszamok" />
+            <End Role="versenyzok" EntitySet="versenyzok" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="versenyszamok">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nev" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="versenyzok" Relationship="DoboszamokModel.FK_versenyzok_ToVersenyszamok" FromRole="versenyszamok" ToRole="versenyzok" />
+        </EntityType>
+        <EntityType Name="versenyzok">
+          <Key>
+            <PropertyRef Name="rajtszam" />
+          </Key>
+          <Property Name="rajtszam" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nev" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="szuletes" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="nem" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="fk_versenyszam_id" Type="Int32" Nullable="false" />
+          <Property Name="korosztaly" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="versenyszamok" Relationship="DoboszamokModel.FK_versenyzok_ToVersenyszamok" FromRole="versenyzok" ToRole="versenyszamok" />
+        </EntityType>
+        <Association Name="FK_versenyzok_ToVersenyszamok">
+          <End Type="DoboszamokModel.versenyszamok" Role="versenyszamok" Multiplicity="1" />
+          <End Type="DoboszamokModel.versenyzok" Role="versenyzok" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="versenyszamok">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="versenyzok">
+              <PropertyRef Name="fk_versenyszam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DoboszamokModelStoreContainer" CdmEntityContainer="DoboszamokEntities">
+          <EntitySetMapping Name="versenyszamok">
+            <EntityTypeMapping TypeName="DoboszamokModel.versenyszamok">
+              <MappingFragment StoreEntitySet="versenyszamok">
+                <ScalarProperty Name="nev" ColumnName="nev" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="versenyzok">
+            <EntityTypeMapping TypeName="DoboszamokModel.versenyzok">
+              <MappingFragment StoreEntitySet="versenyzok">
+                <ScalarProperty Name="korosztaly" ColumnName="korosztaly" />
+                <ScalarProperty Name="fk_versenyszam_id" ColumnName="fk_versenyszam_id" />
+                <ScalarProperty Name="nem" ColumnName="nem" />
+                <ScalarProperty Name="szuletes" ColumnName="szuletes" />
+                <ScalarProperty Name="nev" ColumnName="nev" />
+                <ScalarProperty Name="rajtszam" ColumnName="rajtszam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
