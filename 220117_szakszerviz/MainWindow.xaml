@@ -1,0 +1,192 @@
+﻿<Window x:Class="_220117_szakszerviz.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_220117_szakszerviz"
+        mc:Ignorable="d"
+        Title="Szakszerviz" Height="650" Width="1150" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0"
+               Content="Szakszerviz nyilvántartás"
+               VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center"
+               FontSize="20"
+               FontWeight="bold"/>
+
+        <Grid Grid.Row="1" Margin="20">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="700"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel>
+                
+                <WrapPanel Grid.Row="0" HorizontalAlignment="Left" Margin="0 10">
+                    <Label Content="Keresés rendszám alapján:"
+                       FontSize="16"
+                       FontWeight="Bold" Width="217"/>
+
+                    <TextBox Width="291" MaxLength="7" x:Name="search_input"/>
+
+                    <Button Content="Keresés"
+                        Margin="10 0"
+                        Padding="20 0"
+                        x:Name="search_submit_btn"
+                        Click="Search_submit_btn_Click"/>
+
+                    <Button Content="Vissza"
+                        Padding="20 0"
+                        x:Name="search_reset_btn"
+                        Click="Search_reset_btn_Click"/>
+
+                </WrapPanel>
+
+                <DataGrid AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          CanUserAddRows="False"
+                          Height="300"
+                          Margin="0 10"
+                          x:Name="dg_szerviz"
+                          MouseDoubleClick="dg_szerviz_MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Visibility="Hidden" Binding="{Binding Path=Id}"/>
+                        <DataGridTextColumn Header="Rendszám" Binding="{Binding Path=Rendszam}"/>
+                        <DataGridTextColumn Header="Márka" Binding="{Binding Path=Marka}"/>
+                        <DataGridTextColumn Header="Típus" Binding="{Binding Path=Tipus}"/>
+                        <DataGridTextColumn Header="Forgalomban" Binding="{Binding Path=Forgalomban,StringFormat='yyyy-MM-dd'}"/>
+                        <DataGridTextColumn Header="Szervizigény" Binding="{Binding Path=Szolgaltatas.Nev}"/>
+                        <DataGridTextColumn Header="Felvétel dátuma" Binding="{Binding Path=FelvetelDatuma,StringFormat='yyyy-MM-dd HH:mm'}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                
+                <Label Content="Exportálás:"
+                           FontSize="16"
+                           Margin="0 10"
+                           FontWeight="Bold"/>
+
+                <WrapPanel HorizontalAlignment="left">
+
+                    <RadioButton Content="Összes adat"
+                                 FontSize="16"
+                                 VerticalContentAlignment="Center"
+                                 IsChecked="True"
+                                 x:Name="export_radio_all"
+                                 Click="Export_radio_all_Click"
+                                 />
+                    
+                    <RadioButton Content="Kiválasztott szolgáltatás"
+                                 FontSize="16"
+                                 Margin="10 0"
+                                 VerticalContentAlignment="Center"
+                                 x:Name="export_radio_szolg"
+                                 Click="Export_radio_szolg_Click"
+                                 />
+
+                    <ComboBox Width="200" Margin="10 0"
+                              FontSize="16"
+                              SelectedIndex="0"
+                               IsEnabled="false"
+                              x:Name="export_szolg_input"/>
+
+                    <Button Content="Export" Padding="20 0"  Width="168"
+                            x:Name="export_btn" Click="export_btn_Click"/>
+
+                </WrapPanel>
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Margin="20">
+
+                <Label Content="Adatok hozzáadása"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Height="39"
+                       HorizontalAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       x:Name="edit_label"
+                       />
+
+
+                <StackPanel HorizontalAlignment="Center">
+
+                    <WrapPanel Margin="0 10">
+                        <Label Content="Rendszám:" FontSize="16" Width="120" FontWeight="Bold" Margin="10 0"/>
+                        <TextBox Width="200" MaxLength="7" x:Name="rendszam_input"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 10">
+                        <Label Content="Márka:" FontSize="16" Width="120" FontWeight="Bold" Margin="10 0"/>
+                        <TextBox Width="200" MaxLength="50" x:Name="marka_input"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 10">
+                        <Label Content="Típus:" FontSize="16" Width="120" FontWeight="Bold" Margin="10 0"/>
+                        <TextBox Width="200" MaxLength="50" x:Name="tipus_input"/>
+                    </WrapPanel>
+
+
+                    <WrapPanel Margin="0 10">
+                        <Label Content="Forgalomban:" FontSize="16" Width="120" FontWeight="Bold" Margin="10 0"/>
+                        <DatePicker Width="200"  x:Name="forgalomban_input"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0 10">
+                        <Label Content="Szolgáltatás:" FontSize="16" Width="120" FontWeight="Bold" Margin="10 0"/>
+                        <ComboBox Width="200"
+                                  SelectedIndex="0"
+                                  x:Name="szolg_input"/>
+                    </WrapPanel>
+
+                    <Button Content="Mentés"
+                            Margin="0 5"
+                            Padding="0 10"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Background="Green"
+                            Foreground="white"
+                            x:Name="submit_data_btn"
+                            Click="Submit_data_btn_Click"/>
+                    
+                    <Button Content="Törlés"
+                            Margin="0 5"
+                            Padding="0 10"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Background="Tomato"
+                            Foreground="white"
+                            x:Name="delete_data_btn"
+                            Visibility="Hidden"
+                            Click="Delete_data_btn_Click"/>
+                    
+                    <Button Content="Mégsem!"
+                            Margin="0 5"
+                            Padding="0 10"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Background="Gray"
+                            Foreground="white"
+                            x:Name="back_data_btn"
+                            Visibility="Hidden"
+                            Click="Back_data_btn_Click"/>
+
+                </StackPanel>
+
+
+            </StackPanel>
+
+
+            
+        </Grid>
+        
+        
+
+    </Grid>
+</Window>

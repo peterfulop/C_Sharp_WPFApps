@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SzervizDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Szerviz">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rendszam" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="Marka" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tipus" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Forgalomban" Type="datetime" Nullable="false" />
+          <Property Name="FK_Szolgaltatas_Id" Type="int" Nullable="false" />
+          <Property Name="FelvetelDatuma" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Szolgaltatas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nev" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Szerviz_ToSzolgaltatas">
+          <End Role="Szolgaltatas" Type="Self.Szolgaltatas" Multiplicity="1" />
+          <End Role="Szerviz" Type="Self.Szerviz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Szolgaltatas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Szerviz">
+              <PropertyRef Name="FK_Szolgaltatas_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SzervizDBModelStoreContainer">
+          <EntitySet Name="Szerviz" EntityType="Self.Szerviz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Szolgaltatas" EntityType="Self.Szolgaltatas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Szerviz_ToSzolgaltatas" Association="Self.FK_Szerviz_ToSzolgaltatas">
+            <End Role="Szolgaltatas" EntitySet="Szolgaltatas" />
+            <End Role="Szerviz" EntitySet="Szerviz" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SzervizDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Szerviz">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rendszam" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Marka" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tipus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Forgalomban" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FK_Szolgaltatas_Id" Type="Int32" Nullable="false" />
+          <Property Name="FelvetelDatuma" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Szolgaltatas" Relationship="Self.FK_Szerviz_ToSzolgaltatas" FromRole="Szerviz" ToRole="Szolgaltatas" />
+        </EntityType>
+        <EntityType Name="Szolgaltatas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nev" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Szerviz" Relationship="Self.FK_Szerviz_ToSzolgaltatas" FromRole="Szolgaltatas" ToRole="Szerviz" />
+        </EntityType>
+        <Association Name="FK_Szerviz_ToSzolgaltatas">
+          <End Role="Szolgaltatas" Type="Self.Szolgaltatas" Multiplicity="1" />
+          <End Role="Szerviz" Type="Self.Szerviz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Szolgaltatas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Szerviz">
+              <PropertyRef Name="FK_Szolgaltatas_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SzervizDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Szerviz" EntityType="Self.Szerviz" />
+          <EntitySet Name="Szolgaltatas" EntityType="Self.Szolgaltatas" />
+          <AssociationSet Name="FK_Szerviz_ToSzolgaltatas" Association="Self.FK_Szerviz_ToSzolgaltatas">
+            <End Role="Szolgaltatas" EntitySet="Szolgaltatas" />
+            <End Role="Szerviz" EntitySet="Szerviz" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SzervizDBModelStoreContainer" CdmEntityContainer="SzervizDBEntities">
+          <EntitySetMapping Name="Szerviz">
+            <EntityTypeMapping TypeName="SzervizDBModel.Szerviz">
+              <MappingFragment StoreEntitySet="Szerviz">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Rendszam" ColumnName="Rendszam" />
+                <ScalarProperty Name="Marka" ColumnName="Marka" />
+                <ScalarProperty Name="Tipus" ColumnName="Tipus" />
+                <ScalarProperty Name="Forgalomban" ColumnName="Forgalomban" />
+                <ScalarProperty Name="FK_Szolgaltatas_Id" ColumnName="FK_Szolgaltatas_Id" />
+                <ScalarProperty Name="FelvetelDatuma" ColumnName="FelvetelDatuma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Szolgaltatas">
+            <EntityTypeMapping TypeName="SzervizDBModel.Szolgaltatas">
+              <MappingFragment StoreEntitySet="Szolgaltatas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nev" ColumnName="Nev" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
