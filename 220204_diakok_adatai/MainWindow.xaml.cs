@@ -49,6 +49,7 @@ namespace _220204_diakok_adatai
                 form_back_btn.Visibility=Visibility.Visible;
             }
         }
+
         private void ClearForm()
         {
             form_input_id.Clear();
@@ -222,7 +223,6 @@ namespace _220204_diakok_adatai
                 DbServices.ExportAsOsztaly(export_combo_osztaly.Text.ToString());
             }
         }
-
 
     }
 }
