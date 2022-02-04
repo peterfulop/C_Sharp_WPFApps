@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "211116__doboverseny", "2111
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "220117_szakszerviz", "220117_szakszerviz\220117_szakszerviz.csproj", "{25290376-CD47-4B5C-814C-F6F944B4B736}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "220204_diakok_adatai", "220204_diakok_adatai\220204_diakok_adatai.csproj", "{32A82C6C-1398-496F-8F91-D5EEFC8F81B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{25290376-CD47-4B5C-814C-F6F944B4B736}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25290376-CD47-4B5C-814C-F6F944B4B736}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25290376-CD47-4B5C-814C-F6F944B4B736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32A82C6C-1398-496F-8F91-D5EEFC8F81B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A82C6C-1398-496F-8F91-D5EEFC8F81B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A82C6C-1398-496F-8F91-D5EEFC8F81B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A82C6C-1398-496F-8F91-D5EEFC8F81B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
